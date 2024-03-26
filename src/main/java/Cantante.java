@@ -7,6 +7,10 @@ public class Cantante {
         this.nombre = nombre;
     }
 
+    public Cantante(String nombre) {
+        this(-1,nombre);
+    }
+
     public int getId() {
         return id;
     }
