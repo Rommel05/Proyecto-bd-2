@@ -3,7 +3,7 @@ import java.sql.SQLException;
 public class MusicaService {
     static java.sql.Connection connection;
 
-    public static java.sql.Connection getConnection() throws SQLException {
+    public static java.sql.Connection getConnection(){
         String host = "jdbc:sqlite:src/main/resources/musica";
         if (connection == null) {
             try {

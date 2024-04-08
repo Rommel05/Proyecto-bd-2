@@ -1,9 +1,10 @@
 import java.sql.SQLException;
+import java.util.List;
 
 public class musica {
-    private static  java.sql.Connection con;
+    private static final MusicaRepositoryImpl musicRepository = new MusicaRepositoryImpl();
     public static void main(String[] args) throws SQLException {
-        String host = "jdbc:sqlite:src/main/resources/musica";
-        con = java.sql.DriverManager.getConnection( host );
+        List<Cantante> cantantes = musicRepository.findAll();
+        cantantes.forEach(System.out::println);
     }
 }

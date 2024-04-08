@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MusicaRepositoryImpl implements IRepository<Cantante> {
     private java.sql.Connection con;
-    public MusicaRepositoryImpl() throws SQLException{
+    public MusicaRepositoryImpl(){
         this.con = MusicaService.getConnection();
     }
     public Cantante bdToEntity(ResultSet rs) throws SQLException {
