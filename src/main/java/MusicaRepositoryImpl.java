@@ -11,7 +11,7 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
         this.con = MusicaService.getConnection();
     }
     public Cantante bdToEntity(ResultSet rs) throws SQLException {
-        return new Cantante(rs.getInt("id"), rs.getNString("nombre"), rs.getInt("edad"),rs.getNString("nacionalidad"), rs.getNString("generoMusical"));
+        return new Cantante(rs.getInt("id_artistas"), rs.getNString("nombre"), rs.getInt("edad"),rs.getNString("nacionalidad"), rs.getNString("generoMusical"));
     }
 
     public void save(Cantante cantante) throws SQLException{

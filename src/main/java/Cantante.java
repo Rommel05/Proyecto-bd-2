@@ -1,12 +1,12 @@
 public class Cantante {
-    private int id;
+    private int id_artistas;
     private String nombre;
     private int edad;
     private String nacionalidad;
     private String generoMusical;
 
-    public Cantante(int id, String nombre, int edad, String nacionalidad, String generoMusical) {
-        this.id = id;
+    public Cantante(int id_artistas, String nombre, int edad, String nacionalidad, String generoMusical) {
+        this.id_artistas = id_artistas;
         this.nombre = nombre;
         this.edad = edad;
         this.nacionalidad = nacionalidad;
@@ -14,19 +14,19 @@ public class Cantante {
     }
 
     public Cantante(String nombre, int edad, String nacionalidad, String generoMusical) {
-        this.id = -1;
+        this.id_artistas = -1;
         this.nombre = nombre;
         this.edad = edad;
         this.nacionalidad = nacionalidad;
         this.generoMusical = generoMusical;
     }
 
-    public int getId() {
-        return id;
+    public int getId_artistas() {
+        return id_artistas;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_artistas(int id_artistas) {
+        this.id_artistas = id_artistas;
     }
 
     public String getNombre() {
@@ -63,6 +63,6 @@ public class Cantante {
 
     @Override
     public String toString() {
-        return this.id + " - " + this.nombre;
+        return this.id_artistas + " - " + this.nombre;
     }
 }
