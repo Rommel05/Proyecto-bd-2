@@ -11,13 +11,13 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
         this.con = MusicaService.getConnection();
     }
     public Cantante bdToEntity(ResultSet rs) throws SQLException {
-        return new Cantante(rs.getInt("id_artistas"), rs.getNString("nombre"), rs.getInt("edad"),rs.getNString("nacionalidad"), rs.getNString("generoMusical"));
+        return new Cantante(rs.getInt("id_artistas"), rs.getString("nombre"), rs.getInt("edad"),rs.getString("nacionalidad"), rs.getString("generoMusical"));
     }
 
     public void save(Cantante cantante) throws SQLException{
         ResultSet rs;
         PreparedStatement st = null;
-        if (cantante.getId() == -1) {
+        if (cantante.getId_artistas() == -1) {
             String query = "INSERT INTO artistas (nombre, edad, nacionalidad, generoMusical) VALUES (?, ?, ?, ?)";
 
             st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -25,7 +25,7 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
             st.setString(1, cantante.getNombre());
             st.setInt(2,cantante.getEdad());
             st.setString(3,cantante.getNacionalidad());
-            st.setString(4, cantante.getNacionalidad());
+            st.setString(4, cantante.getGeneroMusical());
 
             st.executeUpdate();
 
@@ -35,7 +35,7 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
 
             if (rs.next()){
                 //Ahora ya sabemos cuál es el nuevo id del Usuario
-                cantante.setId(rs.getInt(1));
+                cantante.setId_artistas(rs.getInt(1));
             }
 
         }
@@ -44,7 +44,7 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
 
     public void delete(Cantante cantante) throws SQLException{
         PreparedStatement st = con.prepareStatement("DELETE FROM artistas WHERE id = ?");
-        st.setInt(1, cantante.getId());
+        st.setInt(1, cantante.getId_artistas());
         st.executeUpdate();
         st.close();
     }
@@ -67,10 +67,10 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
         return cantantes;
     }
 
-    public Cantante findById(int id) throws SQLException {
+    public Cantante findById(int id_artistas) throws SQLException {
         Cantante cantante = null;
         PreparedStatement st = con.prepareStatement("SELECT nombre, edad, nacionalidad, generoMusical FROM artistas WHERE id = ?");
-        st.setInt(1,id);
+        st.setInt(1,id_artistas);
         ResultSet rs = st.executeQuery();
 
         if(rs.next()) {
