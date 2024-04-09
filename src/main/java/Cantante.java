@@ -63,6 +63,6 @@ public class Cantante {
 
     @Override
     public String toString() {
-        return this.id_artistas + " - " + this.nombre;
+        return this.nombre + "";
     }
 }

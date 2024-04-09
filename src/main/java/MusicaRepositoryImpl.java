@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MusicaRepositoryImpl implements IRepository<Cantante> {
     private java.sql.Connection con;
@@ -11,7 +12,7 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
         this.con = MusicaService.getConnection();
     }
     public Cantante bdToEntity(ResultSet rs) throws SQLException {
-        return new Cantante(rs.getInt("id_artistas"), rs.getString("nombre"), rs.getInt("edad"),rs.getString("nacionalidad"), rs.getString("generoMusical"));
+        return new Cantante(rs.getString("nombre"), rs.getInt("edad"),rs.getString("nacionalidad"), rs.getString("generoMusical"));
     }
 
     public void save(Cantante cantante) throws SQLException{
@@ -43,8 +44,8 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
     }
 
     public void delete(Cantante cantante) throws SQLException{
-        PreparedStatement st = con.prepareStatement("DELETE FROM artistas WHERE id = ?");
-        st.setInt(1, cantante.getId_artistas());
+        PreparedStatement st = con.prepareStatement("DELETE FROM artistas WHERE nombre = ?");
+        st.setString(1, cantante.getNombre());
         st.executeUpdate();
         st.close();
     }
@@ -69,8 +70,23 @@ public class MusicaRepositoryImpl implements IRepository<Cantante> {
 
     public Cantante findById(int id_artistas) throws SQLException {
         Cantante cantante = null;
-        PreparedStatement st = con.prepareStatement("SELECT nombre, edad, nacionalidad, generoMusical FROM artistas WHERE id = ?");
+        PreparedStatement st = con.prepareStatement("SELECT nombre, edad, nacionalidad, generoMusical FROM artistas WHERE id_artistas = ?");
         st.setInt(1,id_artistas);
+        ResultSet rs = st.executeQuery();
+
+        if(rs.next()) {
+            cantante = bdToEntity(rs);
+        }
+        return cantante;
+    }
+
+    public Cantante findByName(String nombre) throws SQLException {
+
+        Cantante cantante = null;;
+
+        PreparedStatement st = this.con.prepareStatement("SELECT * FROM artistas WHERE nombre LIKE ?");
+        st.setString(1, "%" + nombre + "%");
+        //Ejecutar la consulta, guardando los datos devueltos en un Resulset
         ResultSet rs = st.executeQuery();
 
         if(rs.next()) {
